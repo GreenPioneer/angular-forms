@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <!-- JS -->
+    <script src="https://code.angularjs.org/1.4.5/angular.js"></script>
+    <script>
+        // create angularjs app
+        var formApp = angular.module('formApp', []);
+        // create angular controller
+        formApp.controller('formController', function ($scope) {
+            //create variables needed  - form data object, submitted forms array
+            $scope.formData = {};
+            $scope.submittedData=[];
+        });
+    </script>
+</head>
+<body ng-app="formApp" ng-controller="formController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <!-- PAGE HEADER -->
+                <div class="page-header">
+                    <h1>Angular Forms</h1>
+                </div>
+                <form name="formExample" role="form" novalidate>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input name="name" type="text" class="form-control" data-ng-model="formData.name" id="name" placeholder="Name" required>                
+                    </div>
+                    <div class="form-group" >
+                        <label>Email</label>
+                        <input name="email" type="email" class="form-control" data-ng-model="formData.email" id="email" placeholder="Email" required>                       
+                    </div>
+                    <div class="form-group" >
+                        <label>Username</label>
+                        <input name="username" type="text" maxLength=8 class="form-control" data-ng-model="formData.username" id="username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group" >
+                        <label>Age</label>
+                        <input name="age" type="number" class="form-control" data-ng-model="formData.age" id="age" placeholder="Age" required>
+                    </div>
+                    <div class="form-group" >
+                        <label>Website</label>
+                        <input name="website" type="url" class="form-control" data-ng-model="formData.website" id="website" placeholder="http://" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                            <span class="glyphicon glyphicon-ok"></span> Submit!
+                        </button>
+                    </div>
+                </form>
+            </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="page-header">
+                    <h1>Form Data</h1>
+                </div>
+                <pre>{{formData |json}}</pre>
+            </div> 
+        </div><!-- Validation Tables -->
+    </div><!-- Container -->
+</body>
+
+</html>

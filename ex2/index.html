@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <!-- JS -->
+    <script src="https://code.angularjs.org/1.4.5/angular.js"></script>
+    <script>
+        // create angularjs app
+        var formApp = angular.module('formApp', []);
+        // create angular controller
+        formApp.controller('formController', function ($scope) {
+            //create variables needed  - form data object, submitted forms array
+            $scope.formData = {};
+            $scope.submittedData=[];      
+                // create function to submit the form after all validation has occurred      
+            $scope.submitForm = function (isValid) {   
+                // check to make sure the form is completely valid if so - push the form being submitted - then clear that form
+                // if not make scope.submitted true 
+                if (isValid) {
+                    alert($scope.formData.name+'your form has been submitted');
+                    $scope.submittedData.push($scope.formData)
+                    $scope.formData = {};
+                } else {
+                    $scope.submitted = true;
+                }
+            };
+        });
+    </script>
+</head>
+<body ng-app="formApp" ng-controller="formController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <!-- PAGE HEADER -->
+                <div class="page-header">
+                    <h1>Angular Forms</h1>
+                </div>
+                <form name="formExample" role="form" data-ng-submit="submitForm(formExample.$valid)" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && formExample.name.$invalid }">
+                        <label>Name</label>
+                        <input name="name" type="text" class="form-control" data-ng-model="formData.name" id="name" placeholder="Name" required>
+                        <div ng-show="submitted && formExample.name.$invalid" class="help-block">
+                            <p ng-show="formExample.name.$error.required">Name is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && formExample.email.$invalid }">
+                        <label>Email</label>
+                        <input name="email" type="email" class="form-control" data-ng-model="formData.email" id="email" placeholder="Email" required>
+                        <div ng-show="submitted && formExample.email.$invalid" class="help-block">
+                            <p ng-show="formExample.email.$error.required">Email is required</p>
+                            <p ng-show="formExample.email.$invalid && !formExample.email.$pristine" class="help-block">Enter a valid email.</p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && formExample.username.$invalid }">
+                        <label>Username</label>
+                        <input name="username" type="text"  ng-minlength="3" ng-maxlength="8" class="form-control" data-ng-model="formData.username" id="username" placeholder="Username" required>
+                        <div ng-show="submitted && formExample.username.$invalid" class="help-block">
+                            <p ng-show="formExample.username.$error.required">Username is required</p>
+                            <p ng-show="formExample.username.$error.minlength" class="help-block">Username is too short.</p>
+                            <p ng-show="formExample.username.$error.maxlength" class="help-block">Username is too long.</p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && formExample.age.$invalid }">
+                        <label>Age</label>
+                        <input name="age" ng-maxlength="2" type="number" class="form-control" data-ng-model="formData.age" id="age" placeholder="Age" required>
+                        <div ng-show="submitted && formExample.age.$invalid" class="help-block">
+                            <p ng-show="formExample.age.$error.required">Age is required</p>
+                            <p ng-show="formExample.age.$error.maxlength" class="help-block">Age is too long.</p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && formExample.website.$invalid }">
+                        <label>Website</label>
+                        <input name="website" type="url" class="form-control" data-ng-model="formData.website" id="website" placeholder="http://" required>
+                        <div ng-show="submitted && formExample.website.$invalid" class="help-block">
+                            <p ng-show="formExample.website.$error.required">Website is required</p>
+                            <p ng-show="formExample.website.$invalid && !formExample.website.$pristine" class="help-block">Enter a valid website.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                            <span class="glyphicon glyphicon-ok"></span> Submit!
+                        </button>
+                    </div>
+                </form>
+            </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-header">
+                    <h1>Validation Tables</h1>
+                </div>
+                <div class="col-xs-4">
+                    <h3>Form</h3>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td ng-class="{ success: formExample.$valid, danger: formExample.$invalid }">Valid</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.$pristine, danger: !formExample.$pristine }">Pristine</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.$dirty }">Dirty</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <h3>Name</h3>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td ng-class="{ success: formExample.name.$valid, danger: formExample.name.$invalid }">Valid</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.name.$pristine, danger: !formExample.name.$pristine }">Pristine</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.name.$dirty }">Dirty</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.name.$touched }">Touched</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <h3>Email</h3>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td ng-class="{ success: formExample.email.$valid, danger: formExample.email.$invalid }">Valid</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.email.$pristine, danger: !formExample.email.$pristine }">Pristine</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.email.$dirty }">Dirty</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.email.$touched }">Touched</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <h3>Username</h3>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td ng-class="{ success: formExample.username.$valid, danger: formExample.username.$invalid }">Valid</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.username.$pristine, danger: !formExample.username.$pristine }">Pristine</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.username.$dirty }">Dirty</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.username.$touched }">Touched</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <h3>Age</h3>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td ng-class="{ success: formExample.age.$valid, danger: formExample.age.$invalid }">Valid</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.age.$pristine, danger: !formExample.age.$pristine }">Pristine</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.age.$dirty }">Dirty</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.age.$touched }">Touched</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <h3>Website</h3>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td ng-class="{ success: formExample.website.$valid, danger: formExample.website.$invalid }">Valid</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.website.$pristine, danger: !formExample.website.$pristine }">Pristine</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.website.$dirty }">Dirty</td>
+                            </tr>
+                            <tr>
+                                <td ng-class="{ success: formExample.website.$touched }">Touched</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="page-header">
+                        <h1>Submitted Data</h1>
+                    </div>
+                    <pre>{{submittedData |json}}</pre>
+                    <div class="page-header">
+                        <h1>Form Data</h1>
+                    </div>
+                    <pre>{{formData |json}}</pre>
+                    <div class="page-header">
+                        <h1>Understanding Angular Form Properties</h1>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Property
+                                    </td>
+                                    <td>
+                                        Class
+                                    </td>
+                                    <td>
+                                        Description
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="success">
+                                        $valid
+                                    </td>
+                                    <td>
+                                        ng-valid
+                                    </td>
+                                    <td>
+                                        <em class="text-info">Boolean</em> Tells whether an item is currently valid based on the rules you placed.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="danger">
+                                        $invalid
+                                    </td>
+                                    <td>
+                                        ng-invalid
+                                    </td>
+                                    <td>
+                                        <em class="text-info">Boolean</em> Tells whether an item is currently invalid based on the rules you placed.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active">
+                                        $pristine
+                                    </td>
+                                    <td>
+                                        ng-pristine
+                                    </td>
+                                    <td>
+                                        <em class="text-info">Boolean</em> True if the form/input <strong>has not</strong> been used yet.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="warning">
+                                        $dirty
+                                    </td>
+                                    <td>
+                                        ng-dirty
+                                    </td>
+                                    <td>
+                                        <em class="text-info">Boolean</em> True if the form/input <strong>has</strong> been used.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="warning">
+                                        $touched
+                                    </td>
+                                    <td>
+                                        ng-touched
+                                    </td>
+                                    <td>
+                                        <em class="text-info">Boolean</em> True if the input <strong>has</strong> been blurred.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3>Accessing Angular Form Properties</h3>
+                    <ul>
+                        <li>
+                            <strong>To access the form:</strong>
+                            <code>&lt;form name&gt;.&lt;angular property&gt;</code>
+                        </li>
+                        <li>
+                            <strong>To access an input:</strong>
+                            <code>&lt;form name&gt;.&lt;input name&gt;.&lt;angular property&gt;</code>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="page-header">
+                    <h1>Validation Data</h1>
+                </div>
+                <pre>{{formExample |json}}</pre>
+            </div>
+        </div><!-- Validation Tables -->
+    </div><!-- Container -->
+</body>
+
+</html>
