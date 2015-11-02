@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <!-- JS -->
+    <script src="https://code.angularjs.org/1.4.5/angular.js"></script>
+    <script src="https://code.angularjs.org/1.4.5/angular-mocks.js"></script>
+    <script src="https://code.angularjs.org/1.4.5/angular-resource.js"></script>
+    <script>
+       // create angularjs app
+        var formApp = angular.module('formApp', []);
+        // create angular controller
+        formApp.controller('formController', function ($scope) {
+            //create variables needed  - form data object, submitted forms array
+        });
+    </script>
+</head>
+<body ng-app="formApp" ng-controller="formController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <!-- PAGE HEADER -->
+                <div class="page-header">
+                    <h1>Angular Forms - Starting Html Page</h1>
+                </div>
+                <form name="formExample" role="form" novalidate>
+                   <div class="form-group">
+                        <label>Name</label>
+                        <!-- data-ng-model="" -->
+                        <input name="name" type="text" class="form-control"  id="name" placeholder="Name" required>                
+                    </div> 
+                </form>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                        <span class="glyphicon glyphicon-ok"></span> Submit!
+                    </button>
+                </div>
+            </div><!-- col -->
+        </div><!-- row -->
+    </div><!-- Container -->
+</body>
+</html>
