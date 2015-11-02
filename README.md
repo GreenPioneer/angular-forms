@@ -4,10 +4,12 @@ This is all examples based code to help people understand more about angular for
 ## Example One - Build the basics of the form
 
 ```html
-    <div class="form-group" >
-        <label>Username</label>
-        <input name="username" type="text" maxLength=10 class="form-control" data-ng-model="formData.username" id="username" placeholder="Username" required>
-    </div>
+    <form name="formExample" role="form" novalidate>
+        <div class="form-group" >
+            <label>Username</label>
+            <input name="username" type="text" maxLength=10 class="form-control" data-ng-model="formData.username" id="username" placeholder="Username" required>
+        </div>
+    </form>
 ```
 
 ## Example Two - Add Validation to the form
@@ -22,6 +24,7 @@ This is all examples based code to help people understand more about angular for
             <p ng-show="formExample.username.$error.maxlength" class="help-block">Username is too long.</p>
         </div>
     </div>
+    {{formExample}}
 ```
 
 ## Example Three - Add $http to post to a mock backand
