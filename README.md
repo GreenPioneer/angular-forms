@@ -56,10 +56,16 @@ This is all examples based code to help people understand more about angular for
 
 ## MISC - Build Mock Backend
 ```javascript
-    $httpBackend.whenPOST('/form').respond(function(method, url, data, headers){
-        console.log('Received these data:', method, url, data, headers);
-        return [200, data, {}];
-    });
+        var formApp = angular.module('formApp', ['ngMockE2E','ngResource']);
+        formApp.controller('formController', function ($scope,$resource,$httpBackend) {
+            $httpBackend.whenPOST('/form').respond(function(method, url, data, headers){
+                console.log('Received these data:', method, url, data, headers);
+                return [200, data, {}];
+            });
+
+            //more logic here
+        });
+
 ```
 
 ## MISC - END JS SOLUTION
